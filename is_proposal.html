@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>IS Project Proposal — AI Agent for Meta Ads Orchestration | พีม ศรีนิคร</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css"/>
+<style>
+:root{
+  --bg:#080F1C;--s1:#0D1627;--s2:#0A1120;--card:#0F1B2D;--card2:#111E30;
+  --b1:rgba(255,255,255,.06);--b2:rgba(255,255,255,.11);--b3:rgba(255,255,255,.18);
+  --indigo:#6366F1;--id:rgba(99,102,241,.12);--ib:rgba(99,102,241,.3);
+  --emerald:#10B981;--ed:rgba(16,185,129,.12);--eb:rgba(16,185,129,.32);
+  --amber:#E8952A;--ad:rgba(232,149,42,.12);--ab:rgba(232,149,42,.28);
+  --rose:#F43F5E;--rd:rgba(244,63,94,.1);--rb:rgba(244,63,94,.28);
+  --blue:#3B82F6;--bd2:rgba(59,130,246,.12);--bb2:rgba(59,130,246,.28);
+  --text:#C8D6E8;--t2:#7A8BA0;--t3:#3D5068;--wh:#E8F0FA;
+  --ff:'Prompt',sans-serif;--fm:'JetBrains Mono',monospace;--r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--s1)}::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
+
+/* layout */
+.wrap{max-width:920px;margin:0 auto;padding:40px 20px 72px}
+
+/* ── STICKY TOC SIDEBAR ── */
+#toc-nav{
+  position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:999;
+  display:flex;flex-direction:column;gap:0;
+  background:#06101E;
+  border:1px solid rgba(255,255,255,.12);
+  border-left:none;border-radius:0 14px 14px 0;
+  padding:10px 0;
+  box-shadow:4px 0 28px rgba(0,0,0,.5);
+  width:44px;overflow:hidden;
+  transition:width .28s cubic-bezier(.4,0,.2,1);
+}
+#toc-nav:hover{width:215px;}
+#toc-nav:hover .toc-label{opacity:1;transform:translateX(0);}
+.toc-item{
+  display:flex;align-items:center;gap:10px;
+  padding:7px 13px;cursor:pointer;
+  border-left:2.5px solid transparent;
+  transition:background .15s,border-color .15s;
+  white-space:nowrap;text-decoration:none;color:inherit;
+}
+.toc-item:hover{background:rgba(255,255,255,.05);border-left-color:rgba(99,102,241,.4);}
+.toc-item.active{background:rgba(99,102,241,.12);border-left-color:#6366F1;}
+.toc-dot{
+  width:7px;height:7px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,.2);background:transparent;
+  transition:all .2s;
+}
+.toc-item.active .toc-dot{
+  background:#6366F1;border-color:#6366F1;
+  box-shadow:0 0 8px rgba(99,102,241,.6);
+}
+.toc-item:hover:not(.active) .toc-dot{border-color:rgba(255,255,255,.4);}
+.toc-label{
+  font-size:11.5px;color:#7A8BA0;
+  opacity:0;transform:translateX(-8px);
+  transition:opacity .2s ease .05s,transform .2s ease .05s;
+  line-height:1.3;
+}
+.toc-item.active .toc-label{color:#C8D6E8;}
+.toc-divider{height:1px;background:rgba(255,255,255,.07);margin:5px 13px;}
+@media(max-width:640px){#toc-nav{display:none;}}
+@media(min-width:641px){.wrap{padding-left:64px;}}
+
+/* hero */
+.hero{background:linear-gradient(145deg,#050D1A 0%,#0D1A35 50%,#0A1428 100%);border:1px solid var(--b2);border-radius:20px;padding:38px 44px 34px;position:relative;overflow:hidden;margin-bottom:6px}
+.hero::before{content:'';position:absolute;right:-100px;top:-100px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.1) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;left:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(232,149,42,.06) 0%,transparent 65%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--id);border:1px solid var(--ib);color:#A5B4FC;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:500;letter-spacing:.03em;margin-bottom:16px}
+.hero-pulse{width:6px;height:6px;border-radius:50%;background:#818CF8;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(17px,3.2vw,26px);font-weight:700;color:var(--wh);line-height:1.28;margin-bottom:8px;position:relative;z-index:1}
+.hero-sub{font-size:13px;color:var(--t2);font-weight:300;font-style:italic;margin-bottom:22px;position:relative;z-index:1}
+.hero-tags{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:1}
+.htag{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid var(--b2);color:var(--t2)}
+
+/* section */
+.sec{margin-top:36px;scroll-margin-top:24px}
+.sec-hd{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--b1);padding-bottom:13px;margin-bottom:18px}
+.sec-num{width:28px;height:28px;border-radius:7px;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#A5B4FC;flex-shrink:0;font-family:var(--fm)}
+.sec-label{font-size:15.5px;font-weight:600;color:var(--wh);line-height:1.2}
+.sec-sublabel{font-size:11.5px;color:var(--t2);margin-top:2px}
+
+/* exec box */
+.exec-box{background:linear-gradient(135deg,rgba(99,102,241,.07),rgba(99,102,241,.02));border:1px solid var(--ib);border-left:3px solid var(--indigo);border-radius:0 10px 10px 0;padding:18px 20px}
+.exec-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#A5B4FC;margin-bottom:8px}
+.exec-box p{font-size:13px;color:var(--text);line-height:1.8}
+.exec-box strong{color:var(--wh);font-weight:500}
+
+/* 2-col grid */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* card base */
+.card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px}
+.card p,.card-body{font-size:12.5px;color:var(--t2);line-height:1.7}
+.card p strong,.card-body strong{color:var(--text);font-weight:500}
+.card-title{font-size:12.5px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+
+/* problem cards */
+.prob-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px}
+.prob-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.prob-card p{font-size:12.5px;color:var(--t2);line-height:1.7}
+.prob-card p strong{color:var(--text);font-weight:500}
+
+/* objectives */
+.obj-list{display:flex;flex-direction:column;gap:8px}
+.obj-item{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:12px 14px}
+.obj-num{width:22px;height:22px;border-radius:6px;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#A5B4FC;flex-shrink:0;font-family:var(--fm)}
+.obj-text{font-size:12.5px;color:var(--text);line-height:1.6}
+.obj-text strong{color:var(--wh)}
+
+/* feature list */
+.feat-list{display:flex;flex-direction:column;gap:8px}
+.feat-item{border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.feat-hd{background:var(--card2);padding:9px 13px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.feat-hd-label{font-size:12.5px;font-weight:500;color:var(--wh)}
+.feat-badge{font-size:10px;padding:2px 8px;border-radius:20px;border:1px solid;font-weight:500;flex-shrink:0}
+.fb-i{background:var(--id);color:#A5B4FC;border-color:var(--ib)}
+.fb-e{background:var(--ed);color:#6EE7B7;border-color:var(--eb)}
+.fb-a{background:var(--ad);color:#FCD34D;border-color:var(--ab)}
+.fb-r{background:var(--rd);color:#FDA4AF;border-color:var(--rb)}
+.feat-body{padding:10px 13px;font-size:12px;color:var(--t2);line-height:1.7}
+.feat-body strong{color:var(--text);font-weight:500}
+
+/* agent cards */
+.agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.agent-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px;border-top:2px solid;transition:background .18s}
+.agent-card:hover{background:var(--card2)}
+.agent-badge{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;margin-bottom:7px}
+.agent-badge .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* tech components */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.comp-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:14px 16px}
+.comp-title{font-size:12px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.comp-body{font-size:12px;color:var(--t2);line-height:1.65}
+.comp-body strong{color:var(--text);font-weight:500}
+.mono-tag{display:inline-block;background:var(--id);border:1px solid var(--ib);color:#A5B4FC;padding:1px 6px;border-radius:4px;font-family:var(--fm);font-size:10.5px}
+.code-box{background:#050C18;border:1px solid var(--b2);border-radius:7px;padding:12px 14px;font-family:var(--fm);font-size:11px;color:#4ADE80;line-height:1.7;margin-top:8px}
+.code-warn{color:#FBBF24}
+
+/* stack grid */
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
+.stack-card{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:12px 10px;text-align:center}
+.stack-label{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.stack-value{font-size:12px;font-weight:600}
+
+/* scope */
+.scope-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scope-col{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.scope-hd{padding:7px 12px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.scope-hd.in{background:var(--ed);color:#6EE7B7;border-bottom:1px solid var(--eb)}
+.scope-hd.out{background:var(--rd);color:#FDA4AF;border-bottom:1px solid var(--rb)}
+.scope-row{display:flex;gap:6px;align-items:flex-start;padding:6px 12px;border-bottom:1px solid var(--b1);font-size:11.5px;color:var(--t2);line-height:1.45}
+.scope-row:last-child{border-bottom:none}
+.scope-row i{font-size:12px;flex-shrink:0;margin-top:2px}
+.scope-row.in i{color:var(--emerald)}.scope-row.out i{color:var(--rose)}
+
+/* timeline */
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.phase{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.phase-hd{padding:8px 10px;text-align:center}
+.phase-name{font-size:11px;font-weight:700;color:#fff;line-height:1.2}
+.phase-days{font-size:9.5px;color:rgba(255,255,255,.6);margin-top:1px}
+.phase-body{padding:8px 10px;background:rgba(255,255,255,.02)}
+.phase-focus{font-size:11.5px;font-weight:600;color:var(--wh);margin-bottom:5px}
+.phase-items{list-style:none;display:flex;flex-direction:column;gap:2px}
+.phase-items li{font-size:10.5px;color:var(--t2);display:flex;gap:4px;line-height:1.4}
+.phase-items li::before{content:'·';flex-shrink:0}
+
+/* kpis */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.kpi-card{background:var(--card);border:1px solid var(--b1);border-top:2px solid;border-radius:var(--r);padding:13px 12px;text-align:center}
+.kpi-val{font-size:19px;font-weight:700;margin-bottom:3px;font-family:var(--fm)}
+.kpi-lbl{font-size:10px;color:var(--t2);line-height:1.35}
+
+/* deliverables */
+.del-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.del-col{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:14px 16px}
+.del-col-title{font-size:11.5px;font-weight:600;margin-bottom:9px;display:flex;align-items:center;gap:5px}
+.del-item{display:flex;gap:6px;align-items:flex-start;font-size:11.5px;color:var(--t2);padding:4px 0;border-bottom:1px solid var(--b1);line-height:1.45}
+.del-item:last-child{border-bottom:none}
+.del-item i{font-size:12px;flex-shrink:0;margin-top:2px}
+
+/* references */
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
+.ref-item{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--b1)}
+.ref-item:nth-last-child(-n+2){border-bottom:none}
+.ref-n{font-family:var(--fm);font-size:10px;color:#A5B4FC;background:var(--id);border:1px solid var(--ib);padding:1px 5px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.ref-t{font-size:11.5px;color:var(--t2);line-height:1.55}
+.ref-t strong{color:var(--text);font-weight:500}
+
+/* demo */
+.demo-wrap{background:var(--s1);border:1px solid var(--b2);border-radius:14px;overflow:hidden;margin-top:2px}
+.demo-hdr{background:linear-gradient(135deg,#0D1A35,#101E38);padding:18px 22px;border-bottom:1px solid var(--b1)}
+.demo-hdr-title{font-size:13.5px;font-weight:600;color:var(--wh);display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.demo-hdr-title i{color:var(--amber);font-size:15px}
+.demo-hdr-desc{font-size:11.5px;color:var(--t2)}
+.ag-app{display:flex;flex-direction:column;height:610px}
+.ag-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--b1)}
+.ag-logo{display:flex;align-items:center;gap:8px}
+.ag-dot{width:26px;height:26px;border-radius:6px;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center}
+.ag-dot i{color:#A5B4FC;font-size:14px}
+.ag-nm{font-size:12px;font-weight:600;color:var(--wh)}
+.ag-subnm{font-size:9px;color:var(--t2)}
+.ag-pills{display:flex;gap:5px}
+.ag-pill{font-size:9px;padding:2px 8px;border-radius:20px;border:1px solid var(--b2);color:var(--t2);background:rgba(255,255,255,.02)}
+.ag-pill.on{background:var(--ed);border-color:var(--eb);color:var(--emerald);display:flex;align-items:center;gap:3px}
+.ag-pill.on::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--emerald)}
+.ag-body{display:flex;flex:1;overflow:hidden}
+.ag-chat{flex:1;display:flex;flex-direction:column;border-right:1px solid var(--b1)}
+.ag-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}
+.ag-msg{display:flex;gap:8px;align-items:flex-start}
+.ag-msg.user{flex-direction:row-reverse}
+.ag-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.ag-av.ai{background:var(--id);border:1px solid var(--ib);color:#A5B4FC}
+.ag-av.user{background:var(--ad);border:1px solid var(--ab);color:var(--amber)}
+.ag-bub{max-width:80%;padding:8px 12px;border-radius:11px;font-size:12px;line-height:1.55}
+.ag-bub.ai{background:var(--card);color:var(--text);border-radius:4px 11px 11px 11px;border:1px solid var(--b1)}
+.ag-bub.user{background:var(--ad);border:1px solid var(--ab);color:var(--text);border-radius:11px 4px 11px 11px}
+.ag-bub p{margin-bottom:4px}.ag-bub p:last-child{margin-bottom:0}
+.ag-bub p strong{color:var(--wh)}
+.ag-typing{display:flex;align-items:center;gap:3px;padding:8px 12px;background:var(--card);border-radius:4px 11px 11px 11px;border:1px solid var(--b1);width:fit-content}
+.ag-typing span{width:4px;height:4px;border-radius:50%;background:var(--t3);animation:tdot 1.2s infinite}
+.ag-typing span:nth-child(2){animation-delay:.2s}.ag-typing span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}}
+.ag-input{padding:9px 12px;border-top:1px solid var(--b1);background:var(--s2)}
+.ag-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.ag-chip{font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid var(--b2);background:rgba(255,255,255,.02);color:var(--t2);cursor:pointer;transition:all .15s}
+.ag-chip:hover,.ag-chip.active{background:var(--id);border-color:var(--ib);color:#A5B4FC}
+.ag-row{display:flex;gap:6px;align-items:center}
+.ag-row input{flex:1;border:1px solid var(--b2);background:var(--card);color:var(--text);border-radius:7px;padding:7px 11px;font-size:12px;font-family:var(--ff)}
+.ag-row input::placeholder{color:var(--t3)}
+.ag-row input:focus{outline:none;border-color:var(--ib)}
+.ag-send{width:30px;height:30px;border-radius:7px;background:var(--indigo);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ag-send:hover{background:#4F46E5}
+.ag-pb{height:2px;background:var(--b1);border-radius:2px;overflow:hidden;margin-top:6px;display:none}
+.ag-pf{height:100%;background:var(--indigo);transition:width .35s;width:0%}
+.ag-right{width:255px;display:flex;flex-direction:column;overflow:hidden}
+.ag-tabs{display:flex;border-bottom:1px solid var(--b1);background:var(--s2)}
+.ag-tab{flex:1;padding:7px 0;font-size:10px;font-weight:500;color:var(--t2);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;align-items:center;justify-content:center;gap:4px}
+.ag-tab i{font-size:11px}
+.ag-tab.active{color:#A5B4FC;border-bottom-color:var(--indigo)}
+.ag-panel{flex:1;overflow-y:auto;padding:9px;display:none}
+.ag-panel.on{display:flex;flex-direction:column;gap:5px}
+.li{display:flex;gap:6px;align-items:flex-start;padding:6px 8px;border-radius:7px;border:1px solid var(--b1);background:var(--card)}
+.li.done{border-color:var(--eb);background:var(--ed)}.li.running{border-color:var(--ab);background:var(--ad)}
+.li-icon{font-size:12px;flex-shrink:0;margin-top:1px}
+.li.done .li-icon{color:var(--emerald)}.li.running .li-icon{color:var(--amber)}
+.li-b{flex:1}.li-t{font-size:10.5px;font-weight:600;color:var(--wh)}.li-s{font-size:9px;color:var(--t2);margin-top:1px;line-height:1.4}.li-tm{font-size:9px;color:var(--t3);flex-shrink:0}
+.ag-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100px;color:var(--t3);font-size:11px;gap:5px}
+.ag-empty i{font-size:24px}
+.cc{border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.cc-hd{background:linear-gradient(135deg,#0a1225,#1a2a50);padding:9px 12px}
+.cc-nm{font-size:11.5px;font-weight:600;color:#fff}
+.cc-sub{font-size:8.5px;color:rgba(255,255,255,.38);margin-top:1px}
+.cc-body{padding:9px 12px;display:flex;flex-direction:column;gap:5px;background:var(--card)}
+.cc-row{display:flex;justify-content:space-between;align-items:flex-start}
+.cc-lbl{font-size:9.5px;color:var(--t2);display:flex;align-items:center;gap:3px}
+.cc-lbl i{font-size:10px}
+.cc-val{font-size:9.5px;font-weight:500;color:var(--text);text-align:right;max-width:140px;line-height:1.4}
+.cc-div{height:1px;background:var(--b1)}
+.cc-ft{display:flex;align-items:center;gap:5px;padding:7px 12px;background:var(--ed);border-top:1px solid var(--eb)}
+.cc-ft span{font-size:10px;color:var(--emerald);font-weight:600}
+.cc-badge{margin-left:auto;background:rgba(0,0,0,.2);border:1px solid var(--eb);color:var(--emerald);font-size:9px;padding:2px 6px;border-radius:20px;display:flex;align-items:center;gap:2px}
+
+/* footer */
+.footer{margin-top:48px;border-top:1px solid var(--b1);padding-top:18px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--t3)}
+.footer strong{color:var(--t2)}
+
+/* fade-in on scroll */
+.fade{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.fade.vis{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ── STICKY SIDEBAR NAV ── -->
+<nav id="toc-nav" aria-label="สารบัญ">
+  <a class="toc-item active" href="#sec-summary">
+    <span class="toc-dot"></span><span class="toc-label">Executive Summary</span>
+  </a>
+  <a class="toc-item" href="#sec-background">
+    <span class="toc-dot"></span><span class="toc-label">ที่มาและปัญหา</span>
+  </a>
+  <a class="toc-item" href="#sec-objectives">
+    <span class="toc-dot"></span><span class="toc-label">วัตถุประสงค์</span>
+  </a>
+  <a class="toc-item" href="#sec-features">
+    <span class="toc-dot"></span><span class="toc-label">Feature Scope</span>
+  </a>
+  <a class="toc-item" href="#sec-agents">
+    <span class="toc-dot"></span><span class="toc-label">Agent Architecture</span>
+  </a>
+  <a class="toc-item" href="#sec-stakeholders">
+    <span class="toc-dot"></span><span class="toc-label">ผู้ใช้งาน</span>
+  </a>
+  <a class="toc-item" href="#sec-technical">
+    <span class="toc-dot"></span><span class="toc-label">Technical Core</span>
+  </a>
+  <a class="toc-item" href="#sec-stack">
+    <span class="toc-dot"></span><span class="toc-label">Tech Stack & Scope</span>
+  </a>
+  <div class="toc-divider"></div>
+  <a class="toc-item" href="#sec-timeline">
+    <span class="toc-dot"></span><span class="toc-label">แผนการดำเนินงาน</span>
+  </a>
+  <a class="toc-item" href="#sec-kpis">
+    <span class="toc-dot"></span><span class="toc-label">KPIs</span>
+  </a>
+  <a class="toc-item" href="#sec-deliverables">
+    <span class="toc-dot"></span><span class="toc-label">Deliverables</span>
+  </a>
+  <a class="toc-item" href="#sec-refs">
+    <span class="toc-dot"></span><span class="toc-label">References</span>
+  </a>
+  <a class="toc-item" href="#sec-demo">
+    <span class="toc-dot"></span><span class="toc-label">Live Demo</span>
+  </a>
+</nav>
+
+<div class="wrap">
+
+<!-- ── HERO ──────────────────────────────── -->
+<div class="hero" id="sec-top">
+  <div class="hero-badge"><span class="hero-pulse"></span>IS Project Proposal (AI Agent for AdTech)</div>
+  <h1>การพัฒนาเอเจนต์ปัญญาประดิษฐ์สำหรับ<br/>การบริหารจัดการแคมเปญโฆษณาด้วยระบบพรอมต์</h1>
+  <p class="hero-sub">Development of a Prompt-Based AI Agent for Advertising Campaign Orchestration using Multi-Agent Architecture</p>
+</div>
+
+<!-- ── 0. EXECUTIVE SUMMARY ──────────────── -->
+<div class="sec fade" id="sec-summary">
+  <div class="exec-box">
+    <div class="exec-title"><i class="ti ti-bulb" style="font-size:15px"></i>แนวคิดหลักของโครงการ (Executive Summary)</div>
+    <p>โครงงานวิจัยนี้มุ่งพัฒนา <strong>Agent Harness (ระบบควบคุมเอเจนต์)</strong> บนโครงสร้าง <strong>Multi-Agent System (4 เอเจนต์ย่อย)</strong> โดยใช้เฟรมเวิร์ก LangGraph ร่วมกับสถาปัตยกรรม <strong>ReAct (Reasoning and Acting)</strong> เพื่อควบคุมและตั้งค่าโฆษณาบน Meta Ads API ผ่านภาษาธรรมชาติ ระบบผสานกลไก <strong>Human-in-the-Loop (HITL)</strong> เพื่อแสดงแผนงานให้ผู้ใช้ตรวจสอบก่อนยิงโฆษณาจริง รวมถึง <strong>Self-Healing Loop</strong> สำหรับแก้ไขข้อผิดพลาด API โดยอัตโนมัติ</p>
+  </div>
+</div>
+
+<!-- ── 1. BACKGROUND ─────────────────────── -->
+<div class="sec fade" id="sec-background">
+  <div class="sec-hd">
+    <div class="sec-num">1</div>
+    <div><div class="sec-label">ที่มาและความสำคัญของปัญหา</div><div class="sec-sublabel">Background &amp; Problem Statement</div></div>
+  </div>
+  <div class="g2">
+    <div class="prob-card">
+      <div class="prob-label" style="color:var(--t2)"><i class="ti ti-world" style="font-size:13px;color:var(--indigo)"></i>บริบทอุตสาหกรรม</div>
+      <p>แพลตฟอร์มโฆษณาดิจิทัลอย่าง Meta Ads Manager กลายเป็นโครงสร้างพื้นฐานของทีมการตลาดสมัยใหม่ อย่างไรก็ตาม การสร้างและจัดการแคมเปญต้องใช้ความเชี่ยวชาญด้านเทคนิคสูง ทั้งการนำทางผ่าน Dashboard ซับซ้อน การตั้งค่า Audience Targeting และการบริหารงบประมาณ ซึ่งสร้างภาระทางปัญญา (Cognitive Load) อย่างมากสำหรับนักการตลาดที่ไม่ใช่สาย Technical</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-label" style="color:var(--t2)"><i class="ti ti-alert-triangle" style="font-size:13px;color:var(--rose)"></i>ช่องว่างและปัญหา</div>
+      <p>มีช่องว่างสำคัญระหว่าง <strong>เจตนาทางการตลาด</strong> กับ <strong>การดำเนินการเชิงเทคนิค</strong> บนแพลตฟอร์มโฆษณา นักการตลาดใช้เวลา 25–40 นาทีต่อแคมเปญสำหรับการตั้งค่าด้วยมือ เครื่องมือปัจจุบันบังคับให้ผู้ใช้เรียน Interface เฉพาะแพลตฟอร์มแทนที่จะแสดงออกถึงเป้าหมายตามธรรมชาติ ความขัดแย้งนี้ลดประสิทธิภาพแคมเปญและเพิ่มระยะเวลา Time-to-Launch</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 2. OBJECTIVES ─────────────────────── -->
+<div class="sec fade" id="sec-objectives">
+  <div class="sec-hd">
+    <div class="sec-num">2</div>
+    <div><div class="sec-label">วัตถุประสงค์การวิจัยและพัฒนา</div><div class="sec-sublabel">Research & Development Objectives</div></div>
+  </div>
+  <div class="obj-list">
+    <div class="obj-item"><div class="obj-num">01</div><div class="obj-text">ศึกษาและทดลองแนวทางการใช้ <strong>Agentic AI ในระบบนิเวศ MarTech</strong> และแสดงให้เห็นการประยุกต์ใช้จริงในสภาพแวดล้อม AdTech</div></div>
+    <div class="obj-item"><div class="obj-num">02</div><div class="obj-text">ออกแบบและพัฒนา <strong>Multi-Agent System</strong> บน LangGraph ที่ตีความคำสั่งภาษาธรรมชาติและดำเนินการตั้งค่าแคมเปญโฆษณา Meta Ads <strong>โดยอัตโนมัติ</strong></div></div>
+    <div class="obj-item"><div class="obj-num">03</div><div class="obj-text">พัฒนากลไก <strong>Human-in-the-Loop (HITL) Verification Gate</strong> และ <strong>Self-Healing Loop</strong> ที่รองรับการ Approve/Reject แผนงานก่อน Launch และแก้ไข API Error อัตโนมัติ</div></div>
+    <div class="obj-item"><div class="obj-num">04</div><div class="obj-text">พัฒนาระบบเพื่อตอบรับพฤติกรรมผู้ใช้ที่เปลี่ยนจากการค้นหาข้อมูล ไปสู่การสั่งงาน Agent แบบ <strong>Prompt-to-Action</strong></div></div>
+  </div>
+</div>
+
+<!-- ── 3. FEATURE SCOPE ───────────────────── -->
+<div class="sec fade" id="sec-features">
+  <div class="sec-hd">
+    <div class="sec-num">3</div>
+    <div><div class="sec-label">Feature Scope</div><div class="sec-sublabel">Detailed Feature Scope</div></div>
+  </div>
+  <div class="feat-list">
+    <div class="feat-item">
+      <div class="feat-hd"><span class="feat-hd-label">F1: Conversational Chat Interface &amp; Context Parsing</span><span class="feat-badge fb-i">User Interface</span></div>
+      <div class="feat-body">รับคำสั่งภาษาธรรมชาติ ทำ Contextual Parsing แกะ Parameters เช่น: <strong>Budget · Objective · Age Range · Location · Image/Video (Creative)</strong> รองรับ Multi-turn Conversation และ Reconnect Logic</div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-hd"><span class="feat-hd-label">F2: Core System API &amp; Campaign Reporting Engine</span><span class="feat-badge fb-e">System API</span></div>
+      <div class="feat-body">ระบบเซิร์ฟเวอร์หลังบ้าน (FastAPI) จัดการ <strong>User Authentication</strong>, Session Management และระบบ <strong>Campaign Report</strong> ดึงข้อมูลสถิติจากฐานข้อมูล PostgreSQL/Mongo มาประมวลผล</div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-hd"><span class="feat-hd-label">F3: State-Controlled Multi-Agent Orchestrator (LangGraph)</span><span class="feat-badge fb-e">Core Backend</span></div>
+      <div class="feat-body">กลไกควบคุม State Node ส่งต่องานระหว่าง 4 Agents มี <strong>Shared State Memory</strong> บันทึกประวัติการตัดสินใจของระบบทั้งหมดลง PostgreSQL</div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-hd"><span class="feat-hd-label">F4: HITL Verification Gate &amp; Execution Dashboard</span><span class="feat-badge fb-a">Safety Interface</span></div>
+      <div class="feat-body">UI พิเศษปรากฏเมื่อ Agent สรุปแผนสำเร็จ ผู้ใช้ตรวจสอบ Budget Structure, Creative Assets และกด <strong>Approve</strong> หรือ <strong>Reject + Feedback</strong></div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-hd"><span class="feat-hd-label">F5: Meta Ads Platform Integration (API Bound)</span><span class="feat-badge fb-r">Integration Scope</span></div>
+      <div class="feat-body">รองรับ <strong>Traffic</strong> (เพิ่มยอดเข้าชมเว็บ) และ <strong>Conversion</strong> (ยอดขาย) Campaign Types + Daily Performance Report (Reach, Impressions, CPC, Amount Spent)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 4. MULTI-AGENT ARCHITECTURE ────────── -->
+<div class="sec fade" id="sec-agents">
+  <div class="sec-hd">
+    <div class="sec-num">4</div>
+    <div><div class="sec-label">สถาปัตยกรรมระบบเอเจนต์</div><div class="sec-sublabel">Multi-Agent Architecture — 4 Core Agents ภายใต้ LangGraph State Control</div></div>
+  </div>
+  <div class="agent-grid">
+    <div class="agent-card" style="border-top-color:var(--indigo)">
+      <div class="agent-badge"><span class="dot" style="background:var(--indigo)"></span><span style="color:#A5B4FC">1. Orchestrator Agent</span></div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">ทำหน้าที่ Supervisor รับ System Prompt หลัก แยกแยะ <strong>Intent</strong> ของผู้ใช้ ทำ <strong>Task Decomposition</strong> และควบคุมทิศทาง State Routing ให้เอเจนต์ตัวถัดไป</p>
+    </div>
+    <div class="agent-card" style="border-top-color:var(--emerald)">
+      <div class="agent-badge"><span class="dot" style="background:var(--emerald)"></span><span style="color:#6EE7B7">2. Strategy &amp; Targeting Agent</span></div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">รับผิดชอบโครงสร้างแคมเปญ การคำนวณงบประมาณ และ <strong>Audience Targeting</strong> แปลงคำสั่งพื้นที่ อายุ และพฤติกรรมให้เป็น API Parameter ที่ Meta ยอมรับ</p>
+    </div>
+    <div class="agent-card" style="border-top-color:var(--amber)">
+      <div class="agent-badge"><span class="dot" style="background:var(--amber)"></span><span style="color:#FCD34D">3. Creative &amp; Copywriting Agent</span></div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">ใช้ <strong>Contextual Prompting</strong> วิเคราะห์บริบทของแบรนด์ สร้าง Headlines, Ad Copy และผูก Creative Media Assets ให้สอดรับกับพฤติกรรมกลุ่มเป้าหมาย</p>
+    </div>
+    <div class="agent-card" style="border-top-color:var(--rose)">
+      <div class="agent-badge"><span class="dot" style="background:var(--rose)"></span><span style="color:#FDA4AF">4. Guardrail &amp; Validator Agent</span></div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">ด่านสุดท้ายก่อนเรียก API ตรวจสอบ <strong>JSON Schema</strong> ตรวจงบประมาณไม่ให้เกิน <strong>Hard Ceiling Cap</strong> และตรวจสอบชิ้นงานตามนโยบายโฆษณา Meta</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 5. STAKEHOLDERS ── -->
+<div class="sec fade" id="sec-stakeholders">
+  <div class="sec-hd">
+    <div class="sec-num">5</div>
+    <div><div class="sec-label">ผู้ใช้งานและผู้ที่มีส่วนเกี่ยวข้อง</div><div class="sec-sublabel">Users &amp; Stakeholders</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+    <div style="background:var(--card);border:1px solid var(--b1);border-top:3px solid var(--indigo);padding:16px 18px;border-radius:var(--r)">
+      <div style="font-size:12.5px;font-weight:600;color:#A5B4FC;margin-bottom:8px">Digital Marketer</div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">ต้องการสร้างและจัดการแคมเปญโดยไม่ต้องเผชิญกับความซับซ้อนเชิงเทคนิค เพื่อประหยัดเวลาและลดความผิดพลาดในการตั้งค่าแคมเปญ</p>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-top:3px solid var(--emerald);padding:16px 18px;border-radius:var(--r)">
+      <div style="font-size:12.5px;font-weight:600;color:#6EE7B7;margin-bottom:8px">Campaign Manager</div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">ต้องการระบบภาพรวม (Overview) สำหรับคุมกลไก Human-in-the-Loop เพื่อกดอนุมัติ (Approve) และติดตามสถานะแคมเปญผ่านศูนย์กลางเดียว</p>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-top:3px solid var(--amber);padding:16px 18px;border-radius:var(--r)">
+      <div style="font-size:12.5px;font-weight:600;color:#FCD34D;margin-bottom:8px">เจ้าของธุรกิจ SME</div>
+      <p style="font-size:12.5px;color:var(--t2);line-height:1.65">ต้องการลงโฆษณาด้วยตนเองแบบ Self-serve ผ่านระบบพรอมต์ภาษาธรรมชาติเพื่อลดต้นทุนเอเจนซี ควบคู่กับระบบควบคุมงบประมาณที่รัดกุม</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 6. TECHNICAL CORE ─────────── -->
+<div class="sec fade" id="sec-technical">
+  <div class="sec-hd">
+    <div class="sec-num">6</div>
+    <div><div class="sec-label">กลไกการทำงานเชิงเทคนิค</div><div class="sec-sublabel">Technical Core — ReAct · HITL · Self-Healing · Guards</div></div>
+  </div>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <div class="comp-title" style="color:#A5B4FC"><i class="ti ti-repeat" style="font-size:14px"></i>ReAct Pattern</div>
+      <div class="comp-body">วนลูป <span class="mono-tag">Thought</span> → <span class="mono-tag">Action</span> → <span class="mono-tag">Observation</span> ผ่าน LangGraph State Machine จนกว่างานจะสำเร็จ ควบคุมผ่าน System Prompt ที่มี Role-Enforcement และ Contextual Framework</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-title" style="color:#6EE7B7"><i class="ti ti-users" style="font-size:14px"></i>HITL Verification Gate</div>
+      <div class="comp-body">ระบบ State Interruption หยุดกราฟก่อน Launch แล้วแสดง Execution Plan บนหน้าจอ ผู้ใช้กด <strong>Approve</strong> เพื่อยิงแอด หรือ <strong>Reject + Feedback</strong> เพื่อให้ Agent ปรับแก้ใหม่
+        <div class="code-box">
+          <div>[+] Objective=TRAFFIC · Budget=5,000 THB/Day</div>
+          <div>[+] Target=Age 25-35 · Bangkok · Instagram</div>
+          <div class="code-warn">&gt;&gt;&gt; AWAITING APPROVAL ···</div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-title" style="color:#FCD34D"><i class="ti ti-shield-check" style="font-size:14px"></i>Life Cycle Guards</div>
+      <div class="comp-body"><strong>Pre-tool:</strong> ตรวจ JSON Payload, Permission Token, Rate Limiting<br/><strong>Post-tool:</strong> ดักรับ API Response, ตรวจ Campaign/AdSet ID Status, บันทึก Trace ID</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-title" style="color:#FDA4AF"><i class="ti ti-loop" style="font-size:14px"></i>Self-Healing Loop</div>
+      <div class="comp-body"><strong>Auto-Correction:</strong> ถ้า JSON Error → Validator ส่ง Error Token ให้ Orchestrator แก้ไขและ Retry สูงสุด 2 ครั้ง<br/><strong>Fault Localization:</strong> ถ้าแก้ไม่ได้ ระบุจุดพังชัดเจนและแจ้ง User ผ่าน UI</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 7. TECH STACK + SCOPE ──────────────── -->
+<div class="sec fade" id="sec-stack">
+  <div class="sec-hd">
+    <div class="sec-num">7</div>
+    <div><div class="sec-label">เทคโนโลยีและขอบเขต IS</div><div class="sec-sublabel">Architecture, Tech Stack &amp; IS Scope</div></div>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-card"><div class="stack-label">Agent Engine</div><div class="stack-value" style="color:#A5B4FC">LangGraph</div></div>
+    <div class="stack-card"><div class="stack-label">Primary LLM</div><div class="stack-value" style="color:#6EE7B7">Claude 3.5 Sonnet</div></div>
+    <div class="stack-card"><div class="stack-label">Backend</div><div class="stack-value" style="color:#FCD34D">FastAPI · Cloud Run</div></div>
+    <div class="stack-card"><div class="stack-label">Platform</div><div class="stack-value" style="color:#FDA4AF">Meta Ads API v18</div></div>
+    <div class="stack-card"><div class="stack-label">Frontend</div><div class="stack-value" style="color:#A5B4FC">Next.js (React)</div></div>
+    <div class="stack-card"><div class="stack-label">Database</div><div class="stack-value" style="color:#6EE7B7">PostgreSQL + pgvector</div></div>
+    <div class="stack-card"><div class="stack-label">Cloud</div><div class="stack-value" style="color:#FCD34D">GCP · Vertex AI</div></div>
+    <div class="stack-card"><div class="stack-label">Eval DB</div><div class="stack-value" style="color:#FDA4AF">Neon (Serverless)</div></div>
+  </div>
+  <div class="scope-cols">
+    <div class="scope-col">
+      <div class="scope-hd in"><i class="ti ti-circle-check" style="font-size:11px;margin-right:3px"></i>In Scope — IS Deliverable (60 วัน)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Next.js Chat UI + HITL Approval Gate</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>FastAPI + LangGraph Multi-Agent (4 Agents)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Claude via Vertex AI + Tool Calling</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Meta Ads API (Mock-first → Live optional)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Self-Healing Loop + Guardrail Guards</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>PostgreSQL + pgvector + Evaluation Layer</div>
+    </div>
+    <div class="scope-col">
+      <div class="scope-hd out"><i class="ti ti-circle-x" style="font-size:11px;margin-right:3px"></i>Out of Scope — Post-IS / Future Work</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Optimizer Agent (Phase 2)</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Pub/Sub + Cloud Tasks (Async Queue)</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Video Transcoding Pipeline</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Google Ads / TikTok Ads Integration</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Multi-tenant Auth + CDN + Cloud Armor</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Creative A/B Testing + Performance Analytics</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 8. TIMELINE ────────────────────────── -->
+<div class="sec fade" id="sec-timeline">
+  <div class="sec-hd">
+    <div class="sec-num">8</div>
+    <div><div class="sec-label">แผนการดำเนินงาน</div><div class="sec-sublabel">60 Working Days · 5 Phases</div></div>
+  </div>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-hd" style="background:linear-gradient(135deg,#1B3A6B,#1e4d8a)"><div class="phase-name">Phase 1</div><div class="phase-days">วันที่ 1–10</div></div>
+      <div class="phase-body"><div class="phase-focus">Research &amp; Design</div><ul class="phase-items"><li>ทบทวนวรรณกรรม</li><li>ออกแบบ Architecture</li><li>ตั้งค่า Tech Stack</li><li>GCP Project Setup</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="phase-hd" style="background:linear-gradient(135deg,#1d3a7a,#2563EB)"><div class="phase-name">Phase 2</div><div class="phase-days">วันที่ 11–25</div></div>
+      <div class="phase-body"><div class="phase-focus">Core Agent Dev</div><ul class="phase-items"><li>LangGraph + LLM</li><li>4 Agents build</li><li>ReAct Loop</li><li>Mock API Layer</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="phase-hd" style="background:linear-gradient(135deg,#c47820,#E8952A)"><div class="phase-name">Phase 3</div><div class="phase-days">วันที่ 26–38</div></div>
+      <div class="phase-body"><div class="phase-focus">UI &amp; Integration</div><ul class="phase-items"><li>Chat UI (Next.js)</li><li>HITL Gate UI</li><li>Execution Log</li><li>E2E Testing</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="phase-hd" style="background:linear-gradient(135deg,#065f46,#10B981)"><div class="phase-name">Phase 4</div><div class="phase-days">วันที่ 39–50</div></div>
+      <div class="phase-body"><div class="phase-focus">Testing &amp; Eval</div><ul class="phase-items"><li>Benchmark 20–30 tasks</li><li>User Study 5–10 คน</li><li>SUS + NASA-TLX</li><li>Data Analysis</li></ul></div>
+    </div>
+    <div class="phase">
+      <div class="phase-hd" style="background:linear-gradient(135deg,#374151,#4B5563)"><div class="phase-name">Phase 5</div><div class="phase-days">วันที่ 51–60</div></div>
+      <div class="phase-body"><div class="phase-focus">Write-up &amp; Present</div><ul class="phase-items"><li>รายงาน IS (~50 หน้า)</li><li>System Docs</li><li>เตรียมนำเสนอ</li><li>Demo คณะกรรมการ</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 9. KPIs ────────────────────────────── -->
+<div class="sec fade" id="sec-kpis">
+  <div class="sec-hd">
+    <div class="sec-num">9</div>
+    <div><div class="sec-label">ตัวชี้วัดความสำเร็จ</div><div class="sec-sublabel">Evaluation KPIs — เกณฑ์วัดผลเป็นตัวเลขที่จับต้องได้</div></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top-color:var(--indigo)"><div class="kpi-val" style="color:#A5B4FC">≥ 80%</div><div class="kpi-lbl">Task Completion Rate<br/>งานที่สำเร็จโดยไม่ต้องแก้ไขด้วยมือ</div></div>
+    <div class="kpi-card" style="border-top-color:var(--indigo)"><div class="kpi-val" style="color:#A5B4FC">≥ 85%</div><div class="kpi-lbl">Configuration Accuracy<br/>ความถูกต้องของ Budget · Audience · Schedule</div></div>
+    <div class="kpi-card" style="border-top-color:var(--emerald)"><div class="kpi-val" style="color:#6EE7B7">≥ 50%</div><div class="kpi-lbl">Time Efficiency Gain<br/>ลดเวลาตั้งค่าเทียบกับ Manual Workflow</div></div>
+    <div class="kpi-card" style="border-top-color:var(--emerald)"><div class="kpi-val" style="color:#6EE7B7">≥ 70</div><div class="kpi-lbl">SUS Usability Score<br/>ระดับ "Good" ตาม SUS Benchmark</div></div>
+    <div class="kpi-card" style="border-top-color:var(--amber)"><div class="kpi-val" style="color:#FCD34D">Pos. Δ</div><div class="kpi-lbl">NASA-TLX Reduction<br/>ลด Cognitive Load ใน 6 Subscales</div></div>
+    <div class="kpi-card" style="border-top-color:var(--amber)"><div class="kpi-val" style="color:#FCD34D">&lt; 8s</div><div class="kpi-lbl">Agent Latency P95<br/>End-to-end Prompt → Campaign Card</div></div>
+  </div>
+</div>
+
+<!-- ── 10. DELIVERABLES ───────────────────── -->
+<div class="sec fade" id="sec-deliverables">
+  <div class="sec-hd">
+    <div class="sec-num">10</div>
+    <div><div class="sec-label">ผลลัพธ์ที่คาดหวัง</div><div class="sec-sublabel">Expected Deliverables</div></div>
+  </div>
+  <div class="del-cols">
+    <div class="del-col">
+      <div class="del-col-title" style="color:#A5B4FC"><i class="ti ti-code" style="font-size:13px"></i>Technical Deliverables</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Multi-Agent System Web App (Next.js + FastAPI)</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>LangGraph 4-Agent Module + ReAct Loop + HITL Gate</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Meta Ads API Connectors (Mock + Live)</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Benchmark Suite (20–30 scenarios + scoring scripts)</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>GitHub Repository + Deployment Guide</div>
+    </div>
+    <div class="del-col">
+      <div class="del-col-title" style="color:#A5B4FC"><i class="ti ti-school" style="font-size:13px"></i>Academic Deliverables</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>รายงาน IS Final (~40–60 หน้า) — format มธ.</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Architecture Diagram + User Flow Documentation</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>User Study Analysis — SUS, NASA-TLX, Benchmark</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Oral Presentation + Live Demo ต่อคณะกรรมการ</div>
+      <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Research Poster สรุป System + Findings</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 11. REFERENCES ─────────────────────── -->
+<div class="sec fade" id="sec-refs">
+  <div class="sec-hd">
+    <div class="sec-num">11</div>
+    <div><div class="sec-label">เอกสารอ้างอิง</div><div class="sec-sublabel">Key References</div></div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:14px 16px">
+    <div class="ref-grid">
+      <div class="ref-item"><span class="ref-n">R1</span><div class="ref-t"><strong>Yao, S. et al. (2023).</strong> ReAct: Synergizing Reasoning and Acting in Language Models. <em>ICLR 2023.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R2</span><div class="ref-t"><strong>Schick, T. et al. (2023).</strong> Toolformer: LMs Can Teach Themselves to Use Tools. <em>NeurIPS 2023.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R3</span><div class="ref-t"><strong>Wang, L. et al. (2024).</strong> A Survey on LLM-based Autonomous Agents. <em>Frontiers of Computer Science.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R4</span><div class="ref-t"><strong>Peffers, K. et al. (2007).</strong> Design Science Research Methodology for IS Research. <em>JMIS, 24(3), 45–77.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R5</span><div class="ref-t"><strong>Brooke, J. (1996).</strong> SUS: A quick and dirty usability scale. <em>Usability Evaluation in Industry.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R6</span><div class="ref-t"><strong>Hart, S.G. &amp; Staveland, L.E. (1988).</strong> Development of NASA-TLX. <em>Human Mental Workload.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R7</span><div class="ref-t"><strong>Anthropic. (2024).</strong> Claude API — Tool Use and Function Calling. <em>anthropic.com/docs.</em></div></div>
+      <div class="ref-item"><span class="ref-n">R8</span><div class="ref-t"><strong>Meta Platforms. (2024).</strong> Meta Marketing API Documentation. <em>developers.facebook.com.</em></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 12. LIVE DEMO ──────────────────────── -->
+<style>
+/* HITL Gate Card */
+.hitl-gate{
+  border:1.5px solid var(--ab);background:linear-gradient(135deg,rgba(232,149,42,.07),rgba(232,149,42,.02));
+  border-radius:11px;padding:14px 15px;margin-top:6px;
+  animation:hitlPulse 2.5s ease infinite;
+}
+@keyframes hitlPulse{0%,100%{border-color:var(--ab)}50%{border-color:rgba(232,149,42,.7)}}
+.hitl-header{display:flex;align-items:center;gap:7px;margin-bottom:11px}
+.hitl-badge{display:flex;align-items:center;gap:5px;background:var(--ad);border:1px solid var(--ab);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:600;color:var(--amber)}
+.hitl-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 1.4s infinite}
+.hitl-title{font-size:12px;font-weight:600;color:#FCD34D}
+.hitl-plan{background:rgba(0,0,0,.25);border:1px solid var(--b2);border-radius:8px;padding:10px 12px;margin-bottom:10px;display:flex;flex-direction:column;gap:5px}
+.hitl-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.hitl-key{font-size:10.5px;color:var(--t2);display:flex;align-items:center;gap:4px;white-space:nowrap}
+.hitl-key i{font-size:11px}
+.hitl-val{font-size:10.5px;color:var(--wh);font-weight:500;text-align:right;line-height:1.4}
+.hitl-val.editable{
+  border-bottom:1px dashed rgba(99,102,241,.5);cursor:pointer;
+  transition:color .15s,border-color .15s;
+}
+.hitl-val.editable:hover{color:#A5B4FC;border-color:var(--indigo)}
+.hitl-divider{height:1px;background:var(--b1)}
+.hitl-copy{background:rgba(0,0,0,.25);border:1px solid var(--b2);border-radius:8px;padding:9px 11px;margin-bottom:10px}
+.hitl-copy-label{font-size:9.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.hitl-copy-text{font-size:11px;color:var(--text);line-height:1.5;font-style:italic}
+.hitl-actions{display:flex;gap:7px}
+.hitl-btn{flex:1;padding:8px 6px;border-radius:8px;border:1px solid;font-size:11.5px;font-weight:600;cursor:pointer;font-family:var(--ff);display:flex;align-items:center;justify-content:center;gap:5px;transition:all .15s}
+.hitl-btn i{font-size:13px}
+.hitl-btn.approve{background:var(--ed);border-color:var(--eb);color:var(--emerald)}
+.hitl-btn.approve:hover{background:rgba(16,185,129,.22);transform:translateY(-1px)}
+.hitl-btn.reject{background:var(--rd);border-color:var(--rb);color:#FDA4AF}
+.hitl-btn.reject:hover{background:rgba(244,63,94,.18);transform:translateY(-1px)}
+.hitl-btn.edit{background:var(--id);border-color:var(--ib);color:#A5B4FC}
+.hitl-btn.edit:hover{background:rgba(99,102,241,.22);transform:translateY(-1px)}
+/* Launched success card */
+.launch-card{
+  background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.03));
+  border:1.5px solid var(--eb);border-radius:11px;padding:13px 15px;margin-top:6px;
+}
+.launch-header{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.launch-icon{width:26px;height:26px;border-radius:50%;background:var(--ed);border:1px solid var(--eb);display:flex;align-items:center;justify-content:center}
+.launch-icon i{color:var(--emerald);font-size:13px}
+.launch-title{font-size:12.5px;font-weight:600;color:var(--emerald)}
+.launch-meta{font-size:11px;color:var(--t2)}
+.launch-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.launch-stat{background:rgba(0,0,0,.2);border:1px solid var(--b1);border-radius:6px;padding:7px 9px;text-align:center}
+.launch-stat-val{font-size:13px;font-weight:700;color:var(--emerald);font-family:var(--fm)}
+.launch-stat-lbl{font-size:9.5px;color:var(--t3);margin-top:1px}
+/* Rejected card */
+.reject-card{
+  background:linear-gradient(135deg,rgba(244,63,94,.07),rgba(244,63,94,.02));
+  border:1.5px solid var(--rb);border-radius:11px;padding:12px 14px;margin-top:6px;
+}
+.reject-title{font-size:12px;font-weight:600;color:#FDA4AF;display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.reject-fb{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:8px}
+.reject-chips{display:flex;flex-wrap:wrap;gap:5px}
+.reject-chip{font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid var(--b2);background:rgba(255,255,255,.03);color:var(--t2);cursor:pointer;transition:all .15s}
+.reject-chip:hover{background:var(--rd);border-color:var(--rb);color:#FDA4AF}
+/* edit modal overlay (inline, no fixed) */
+.edit-overlay{background:rgba(0,0,0,.55);border-radius:11px;padding:14px;margin-top:6px}
+.edit-title{font-size:12px;font-weight:600;color:var(--wh);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.edit-field{margin-bottom:8px}
+.edit-label{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.edit-input{width:100%;background:var(--card);border:1px solid var(--b2);border-radius:6px;padding:6px 9px;font-size:12px;color:var(--text);font-family:var(--ff)}
+.edit-input:focus{outline:none;border-color:var(--ib)}
+.edit-actions{display:flex;gap:7px;margin-top:10px}
+.edit-btn{flex:1;padding:7px;border-radius:7px;border:1px solid;font-size:11.5px;font-weight:600;cursor:pointer;font-family:var(--ff)}
+.edit-btn.confirm{background:var(--id);border-color:var(--ib);color:#A5B4FC}
+.edit-btn.cancel{background:transparent;border-color:var(--b2);color:var(--t2)}
+</style>
+
+<div class="sec fade" id="sec-demo">
+  <div class="sec-hd">
+    <div class="sec-num">Demo</div>
+    <div><div class="sec-label">Human-in-the-Loop Interactive Demo</div><div class="sec-sublabel">Agent วิเคราะห์ → หยุดรอ Review → Approve / Reject / แก้ไข → Launch</div></div>
+  </div>
+  <div class="demo-wrap">
+    <div class="demo-hdr">
+      <div class="demo-hdr-title"><i class="ti ti-player-play"></i>CampaignAI — HITL Gate Demo</div>
+      <div class="demo-hdr-desc">กด Scenario → ดู Agent วิเคราะห์ → ระบบหยุดที่ HITL Gate → <strong style="color:var(--amber)">คุณต้องตัดสินใจ: Approve / Reject / แก้ไข</strong> ก่อน Launch จริง</div>
+    </div>
+    <div class="ag-app">
+      <div class="ag-bar">
+        <div class="ag-logo">
+          <div class="ag-dot"><i class="ti ti-robot"></i></div>
+          <div><div class="ag-nm">Ad Campaign Orchestration Agent</div><div class="ag-subnm">Multi-Agent · ReAct Loop · HITL Gate · IS Prototype</div></div>
+        </div>
+        <div class="ag-pills">
+          <span class="ag-pill on" id="agStatusPill">Agent ready</span>
+          <span class="ag-pill">Meta Ads</span>
+          <span class="ag-pill" id="hitlPill">HITL</span>
+        </div>
+      </div>
+      <div class="ag-body">
+        <div class="ag-chat">
+          <div class="ag-msgs" id="agMsgs">
+            <div class="ag-msg">
+              <div class="ag-av ai"><i class="ti ti-robot" style="font-size:12px"></i></div>
+              <div class="ag-bub ai">
+                <p>สวัสดีครับ! ผมคือ <strong>Ad Campaign Orchestration Agent</strong></p>
+                <p>รับคำสั่งภาษาธรรมชาติ → วิเคราะห์ → วางแผน → <strong>หยุดรอการอนุมัติจากคุณ</strong> ก่อน Launch จริงเสมอ</p>
+                <p style="font-size:10.5px;color:var(--t2);margin-top:5px">👇 เลือก Scenario แล้วลองกด Approve / Reject / แก้ไข</p>
+              </div>
+            </div>
+          </div>
+          <div class="ag-input">
+            <div class="ag-chips" id="agChips">
+              <div class="ag-chip" onclick="runS(0)">🎯 Retargeting ฿15,000</div>
+              <div class="ag-chip" onclick="runS(1)">🛒 Traffic — Instagram</div>
+              <div class="ag-chip" onclick="runS(2)">⚠️ งบเกิน Hard Cap</div>
+            </div>
+            <div class="ag-row">
+              <input type="text" id="agInput" placeholder="พิมพ์คำสั่งแคมเปญ..." onkeydown="if(event.key==='Enter')sendC()"/>
+              <button class="ag-send" onclick="sendC()"><i class="ti ti-send" style="font-size:13px"></i></button>
+            </div>
+            <div class="ag-pb" id="agPb"><div class="ag-pf" id="agPf"></div></div>
+          </div>
+        </div>
+        <div class="ag-right">
+          <div class="ag-tabs">
+            <button class="ag-tab active" id="agTabLog" onclick="swTab('log')"><i class="ti ti-list-check"></i>Agent Log</button>
+            <button class="ag-tab" id="agTabFlow" onclick="swTab('flow')"><i class="ti ti-git-branch"></i>HITL Flow</button>
+          </div>
+          <div class="ag-panel on" id="agPanelLog">
+            <div class="ag-empty" id="agEmpty"><i class="ti ti-terminal-2"></i>รอ Agent เริ่มทำงาน...</div>
+            <div id="agLog" style="display:none;flex-direction:column;gap:5px"></div>
+          </div>
+          <div class="ag-panel" id="agPanelFlow">
+            <!-- HITL Flow diagram -->
+            <div style="display:flex;flex-direction:column;gap:0;padding:4px 0">
+              <div class="flow-step" id="fs0" style="display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:7px;border:1px solid var(--b1);background:var(--card);opacity:.35">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:#A5B4FC;font-family:var(--fm)">1</div>
+                <div><div style="font-size:10.5px;font-weight:600;color:var(--wh)">User Prompt</div><div style="font-size:9.5px;color:var(--t2)">รับคำสั่งภาษาธรรมชาติ</div></div>
+              </div>
+              <div style="width:1px;height:8px;background:var(--b2);margin-left:17px"></div>
+              <div class="flow-step" id="fs1" style="display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:7px;border:1px solid var(--b1);background:var(--card);opacity:.35">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:#A5B4FC;font-family:var(--fm)">2</div>
+                <div><div style="font-size:10.5px;font-weight:600;color:var(--wh)">Orchestrator</div><div style="font-size:9.5px;color:var(--t2)">Intent + Task decompose</div></div>
+              </div>
+              <div style="width:1px;height:8px;background:var(--b2);margin-left:17px"></div>
+              <div class="flow-step" id="fs2" style="display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:7px;border:1px solid var(--b1);background:var(--card);opacity:.35">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:#A5B4FC;font-family:var(--fm)">3</div>
+                <div><div style="font-size:10.5px;font-weight:600;color:var(--wh)">Strategy + Creative</div><div style="font-size:9.5px;color:var(--t2)">Budget · Audience · Copy</div></div>
+              </div>
+              <div style="width:1px;height:8px;background:var(--b2);margin-left:17px"></div>
+              <div class="flow-step" id="fs3" style="display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:7px;border:1px solid var(--b1);background:var(--card);opacity:.35">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--id);border:1px solid var(--ib);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:#A5B4FC;font-family:var(--fm)">4</div>
+                <div><div style="font-size:10.5px;font-weight:600;color:var(--wh)">Guardrail Validator</div><div style="font-size:9.5px;color:var(--t2)">JSON · Budget cap · Policy</div></div>
+              </div>
+              <div style="width:1px;height:8px;background:var(--ab);margin-left:17px"></div>
+              <div class="flow-step" id="fs4" style="display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:7px;border:1.5px solid var(--ab);background:var(--ad);opacity:.35">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--ad);border:1.5px solid var(--ab);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:var(--amber);font-family:var(--fm)">⏸</div>
+                <div><div style="font-size:10.5px;font-weight:700;color:#FCD34D">HITL Gate — หยุดรอ</div><div style="font-size:9.5px;color:var(--t2)">ผู้ใช้ต้องอนุมัติก่อน</div></div>
+              </div>
+              <div style="width:1px;height:8px;background:var(--b2);margin-left:17px"></div>
+              <div class="flow-step" id="fs5" style="display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:7px;border:1px solid var(--b1);background:var(--card);opacity:.35">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--ed);border:1px solid var(--eb);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:700;color:var(--emerald);font-family:var(--fm)">✓</div>
+                <div><div style="font-size:10.5px;font-weight:600;color:var(--wh)">Launch Campaign</div><div style="font-size:9.5px;color:var(--t2)">POST Meta Ads API</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>MSMIS #20 - TBS</div>
+  <div>AI Agent for Meta Ads Orchestration</div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// Scroll fade-in
+const fo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:0.06});
+document.querySelectorAll('.fade').forEach(el=>fo.observe(el));
+
+// ── TOC SIDEBAR ──
+(function(){
+  const links=document.querySelectorAll('#toc-nav .toc-item[href]');
+  links.forEach(l=>{
+    l.addEventListener('click',function(e){
+      e.preventDefault();
+      const id=this.getAttribute('href').slice(1);
+      const el=document.getElementById(id);
+      if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+      links.forEach(i=>i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  // Scroll spy
+  const sectionIds=['sec-summary','sec-background','sec-objectives','sec-features',
+    'sec-agents','sec-stakeholders','sec-technical','sec-stack',
+    'sec-timeline','sec-kpis','sec-deliverables','sec-refs','sec-demo'];
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const id=en.target.id;
+        links.forEach(i=>i.classList.remove('active'));
+        const active=document.querySelector('#toc-nav .toc-item[href="#'+id+'"]');
+        if(active)active.classList.add('active');
+      }
+    });
+  },{rootMargin:'-8% 0px -78% 0px',threshold:0});
+  sectionIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
+
+// ── HITL DEMO ENGINE ──
+const SC=[
+  {
+    user:"สร้าง Retargeting Campaign ลูกค้าทอดทิ้งตะกร้า งบ ฿15,000 Meta กรุงเทพ อายุ 25–45 ปี 7 วัน",
+    preSteps:[
+      {t:"Orchestrator: Intent classified",s:"Retargeting · Conversion objective",tm:"0.2s"},
+      {t:"Strategy Agent: Audience mapped",s:"Cart abandoners · Age 25–45 · Bangkok",tm:"0.7s"},
+      {t:"Strategy Agent: Budget split",s:"฿15,000 total · ฿2,142/day × 7 days",tm:"1.1s"},
+      {t:"Creative Agent: Copy generated",s:"'อย่าลืมสินค้าในตะกร้า!' · 3 variants",tm:"1.6s"},
+      {t:"Guardrail: JSON schema ✓",s:"Budget cap ✓ · Policy check ✓",tm:"2.0s"},
+      {t:"⏸ HITL Gate — State interrupted",s:"Awaiting human approval before API call",tm:"2.3s"},
+    ],
+    plan:{
+      obj:"Retargeting · Conversions",
+      aud:"Cart abandoners · Age 25–45 · Bangkok",
+      budget:"฿15,000 total",
+      daily:"฿2,142 / วัน",
+      dur:"7 วัน",
+      placement:"Meta (Facebook + Instagram)",
+    },
+    copy:"อย่าลืมสินค้าที่คุณสนใจ! กลับมาดูอีกครั้ง ก่อนสินค้าจะหมด 🛒",
+    postSteps:[
+      {t:"Tool: CreateCampaign()",s:"POST /v18.0/act_xxx/campaigns → 201 Created",tm:"0.4s"},
+      {t:"Tool: CreateAdSet()",s:"Custom audience: cart_abandoners_bkk · 201",tm:"0.9s"},
+      {t:"Tool: UploadCreative()",s:"3 ad variants uploaded · asset_id assigned",tm:"1.4s"},
+      {t:"Tool: PublishAds()",s:"Campaign status: ACTIVE · Campaign ID saved",tm:"1.8s"},
+    ],
+    launched:{reach:"45k–60k users",cpc:"฿3.20 est.",campId:"23858412091"},
+    blocked:false,
+  },
+  {
+    user:"Traffic Campaign โปรโมทเว็บ งบ ฿5,000/วัน Instagram เฉพาะ กรุงเทพ อายุ 25–35 ระยะเวลา 14 วัน",
+    preSteps:[
+      {t:"Orchestrator: Intent classified",s:"Traffic · Website clicks objective",tm:"0.2s"},
+      {t:"Strategy Agent: Platform routed",s:"Instagram Placement Only",tm:"0.6s"},
+      {t:"Strategy Agent: Budget calculated",s:"฿5,000/day × 14 = ฿70,000 total",tm:"1.0s"},
+      {t:"Creative Agent: Copy generated",s:"'เยี่ยมชมเว็บของเราวันนี้!' · 2 variants",tm:"1.5s"},
+      {t:"Guardrail: JSON schema ✓",s:"Budget cap ✓ · Policy check ✓",tm:"1.9s"},
+      {t:"⏸ HITL Gate — State interrupted",s:"Awaiting human approval before API call",tm:"2.2s"},
+    ],
+    plan:{
+      obj:"Traffic · Website Clicks",
+      aud:"Age 25–35 · Bangkok",
+      budget:"฿70,000 total",
+      daily:"฿5,000 / วัน",
+      dur:"14 วัน",
+      placement:"Instagram Only",
+    },
+    copy:"สินค้าใหม่มาแล้ว! คลิกเพื่อดูคอลเลคชันล่าสุดก่อนใคร ✨",
+    postSteps:[
+      {t:"Tool: CreateCampaign()",s:"POST /v18.0/act_xxx/campaigns → 201 Created",tm:"0.4s"},
+      {t:"Tool: CreateAdSet()",s:"Instagram placement · Age 25-35 · BKK · 201",tm:"0.9s"},
+      {t:"Tool: PublishAds()",s:"Campaign status: ACTIVE · 2 ad variants live",tm:"1.4s"},
+    ],
+    launched:{reach:"80k–120k/day",cpc:"฿2.80 est.",campId:"23859001234"},
+    blocked:false,
+  },
+  {
+    user:"สร้าง Awareness Campaign งบ ฿500,000 บาท เพื่อ Scale ใหญ่มาก",
+    preSteps:[
+      {t:"Orchestrator: Intent classified",s:"Awareness · Reach objective",tm:"0.2s"},
+      {t:"Strategy Agent: Budget parsed",s:"฿500,000 total — checking hard cap...",tm:"0.7s"},
+      {t:"Guardrail: Hard Cap exceeded ❌",s:"Max allowed: ฿50,000 · Requested: ฿500,000",tm:"1.1s"},
+      {t:"⚠️ Guardrail blocked — escalating HITL",s:"Cannot proceed · Human decision required",tm:"1.4s"},
+    ],
+    plan:{
+      obj:"Awareness · Reach",
+      aud:"Broad · Bangkok",
+      budget:"฿500,000 — ❌ เกิน Hard Cap",
+      daily:"—",
+      dur:"—",
+      placement:"Meta All Placements",
+    },
+    copy:"—",
+    postSteps:[],
+    launched:null,
+    blocked:true,
+  }
+];
+
+let busy=false,curTab='log',awaitingHITL=false,currentSC=null,currentPlan=null;
+
+function swTab(t){
+  curTab=t;
+  document.getElementById('agTabLog').classList.toggle('active',t==='log');
+  document.getElementById('agTabFlow').classList.toggle('active',t==='flow');
+  document.getElementById('agPanelLog').className='ag-panel'+(t==='log'?' on':'');
+  document.getElementById('agPanelFlow').className='ag-panel'+(t==='flow'?' on':'');
+}
+
+function setFlowStep(idx){
+  for(let i=0;i<=5;i++){
+    const el=document.getElementById('fs'+i);
+    if(!el)continue;
+    if(i<idx){el.style.opacity='1';el.style.background='var(--card)';el.style.borderColor='var(--eb)'}
+    else if(i===idx){el.style.opacity='1';el.style.background=idx===4?'var(--ad)':'var(--card)';el.style.borderColor=idx===4?'var(--ab)':'var(--ib)'}
+    else{el.style.opacity='.3';el.style.background='var(--card)';el.style.borderColor='var(--b1)'}
+  }
+}
+
+function addMsg(role,html,isHTML){
+  const c=document.getElementById('agMsgs');
+  const d=document.createElement('div');d.className='ag-msg '+role;
+  const av=document.createElement('div');av.className='ag-av '+role;
+  av.innerHTML=role==='ai'?'<i class="ti ti-robot" style="font-size:11px"></i>':'PS';
+  const b=document.createElement('div');b.className='ag-bub '+role;
+  if(isHTML){b.innerHTML=html;}
+  else{html.split('\n').forEach(ln=>{const p=document.createElement('p');p.textContent=ln;b.appendChild(p);});}
+  d.appendChild(av);d.appendChild(b);c.appendChild(d);c.scrollTop=c.scrollHeight;
+  return b;
+}
+
+function showT(){
+  const c=document.getElementById('agMsgs');
+  const d=document.createElement('div');d.className='ag-msg';d.id='agT';
+  d.innerHTML='<div class="ag-av ai"><i class="ti ti-robot" style="font-size:11px"></i></div><div class="ag-typing"><span></span><span></span><span></span></div>';
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function hideT(){const t=document.getElementById('agT');if(t)t.remove();}
+
+function mkLI(item,type){
+  const d=document.createElement('div');
+  const cls=type==='warn'?'running':type==='block'?'running':'done';
+  d.className='li '+cls;
+  const icMap={done:'ti-circle-check',running:'ti-loader-2'};
+  const ic=type==='warn'?'ti-alert-triangle':type==='block'?'ti-ban':icMap[cls];
+  const col=type==='warn'?'color:var(--amber)':type==='block'?'color:var(--rose)':'';
+  d.innerHTML=`<i class="li-icon ti ${ic}" style="${col}"></i><div class="li-b"><div class="li-t">${item.t}</div><div class="li-s">${item.s}</div></div><div class="li-tm">${item.tm}</div>`;
+  return d;
+}
+
+function buildHITLCard(sc){
+  const p=sc.plan;
+  const isBlocked=sc.blocked;
+  const budgetStyle=isBlocked?'color:var(--rose);font-weight:700':'';
+  return `<div class="hitl-gate">
+    <div class="hitl-header">
+      <div class="hitl-badge">${isBlocked?'🚫 BLOCKED':'⏸ HITL GATE'}</div>
+      <span class="hitl-title">${isBlocked?'Guardrail บล็อก — ต้องการการตัดสินใจ':'กรุณาตรวจสอบ Execution Plan'}</span>
+    </div>
+    <div class="hitl-plan">
+      <div class="hitl-row"><span class="hitl-key"><i class="ti ti-target"></i>Objective</span><span class="hitl-val">${p.obj}</span></div>
+      <div class="hitl-divider"></div>
+      <div class="hitl-row"><span class="hitl-key"><i class="ti ti-users"></i>Audience</span><span class="hitl-val">${p.aud}</span></div>
+      <div class="hitl-divider"></div>
+      <div class="hitl-row"><span class="hitl-key"><i class="ti ti-currency-baht"></i>Budget (Total)</span><span class="hitl-val" style="${budgetStyle}">${p.budget}</span></div>
+      <div class="hitl-divider"></div>
+      <div class="hitl-row"><span class="hitl-key"><i class="ti ti-calendar-repeat"></i>Daily / Duration</span><span class="hitl-val">${p.daily} · ${p.dur}</span></div>
+      <div class="hitl-divider"></div>
+      <div class="hitl-row"><span class="hitl-key"><i class="ti ti-device-mobile"></i>Placement</span><span class="hitl-val">${p.placement}</span></div>
+    </div>
+    ${!isBlocked&&sc.copy!=='—'?`<div class="hitl-copy"><div class="hitl-copy-label">Ad Copy (Preview)</div><div class="hitl-copy-text">"${sc.copy}"</div></div>`:''}
+    ${isBlocked?`<div style="background:var(--rd);border:1px solid var(--rb);border-radius:8px;padding:9px 11px;margin-bottom:10px;font-size:11.5px;color:#FDA4AF;line-height:1.6"><i class="ti ti-shield-x" style="margin-right:5px"></i><strong>Hard Cap Exceeded:</strong> งบที่ขอ ฿500,000 เกินเพดาน ฿50,000 — Agent ไม่สามารถ Launch โดยไม่ได้รับอนุญาต</div>`:''}
+    <div class="hitl-actions">
+      ${!isBlocked?`<button class="hitl-btn approve" onclick="doApprove()"><i class="ti ti-circle-check"></i>Approve & Launch</button>`:''}
+      <button class="hitl-btn edit" onclick="doEdit()"><i class="ti ti-edit"></i>${isBlocked?'แก้ไขงบ':'แก้ไข'}</button>
+      <button class="hitl-btn reject" onclick="doReject()"><i class="ti ti-x"></i>Reject</button>
+    </div>
+  </div>`;
+}
+
+async function doApprove(){
+  if(!awaitingHITL||!currentSC)return;
+  awaitingHITL=false;
+  // remove HITL card, show approved
+  const gates=document.querySelectorAll('.hitl-gate');
+  gates.forEach(g=>{
+    g.style.animation='none';
+    g.style.border='1.5px solid var(--eb)';
+    g.style.background='linear-gradient(135deg,rgba(16,185,129,.07),rgba(16,185,129,.02))';
+    g.innerHTML=`<div style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--emerald)"><i class="ti ti-circle-check" style="font-size:15px"></i>Approved — Launching campaign...</div>`;
+  });
+  setFlowStep(5);
+  // update pill
+  const pill=document.getElementById('agStatusPill');
+  pill.textContent='Launching...';pill.className='ag-pill on';
+  await sl(400);showT();
+  // run post steps
+  const el=document.getElementById('agLog');
+  const sc=currentSC;
+  for(const step of sc.postSteps){
+    const row=mkLI({...step,st:'running'},'done');
+    el.appendChild(row);el.scrollTop=el.scrollHeight;
+    await sl(420+Math.random()*180);
+  }
+  hideT();
+  // success card in chat
+  const {reach,cpc,campId}=sc.launched;
+  addMsg('ai',`<div class="launch-card">
+    <div class="launch-header">
+      <div class="launch-icon"><i class="ti ti-rocket"></i></div>
+      <div><div class="launch-title">Campaign Launched!</div><div class="launch-meta">Campaign ID: ${campId}</div></div>
+    </div>
+    <div class="launch-stats">
+      <div class="launch-stat"><div class="launch-stat-val">${reach}</div><div class="launch-stat-lbl">Est. Reach</div></div>
+      <div class="launch-stat"><div class="launch-stat-val">${cpc}</div><div class="launch-stat-lbl">Est. CPC</div></div>
+      <div class="launch-stat"><div class="launch-stat-val">ACTIVE</div><div class="launch-stat-lbl">Status</div></div>
+      <div class="launch-stat"><div class="launch-stat-val">HITL ✓</div><div class="launch-stat-lbl">Human Approved</div></div>
+    </div>
+  </div>`,true);
+  pill.textContent='Campaign live';
+  setFlowStep(6);
+  await sl(300);
+  document.getElementById('agPb').style.display='none';
+  busy=false;currentSC=null;
+}
+
+async function doReject(){
+  if(!awaitingHITL)return;
+  awaitingHITL=false;
+  const gates=document.querySelectorAll('.hitl-gate');
+  gates.forEach(g=>{
+    g.style.animation='none';
+    g.style.border='1.5px solid var(--rb)';
+    g.style.background='linear-gradient(135deg,rgba(244,63,94,.07),rgba(244,63,94,.02))';
+    g.innerHTML=`<div style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#FDA4AF"><i class="ti ti-x" style="font-size:15px"></i>Rejected — Campaign cancelled</div>`;
+  });
+  await sl(300);showT();await sl(900);hideT();
+  addMsg('ai',`<div class="reject-card">
+    <div class="reject-title"><i class="ti ti-message-circle"></i>แจ้งเหตุผลที่ Reject (optional)</div>
+    <div class="reject-fb">Agent จะนำ Feedback ไปปรับแผนใหม่ในรอบถัดไป</div>
+    <div class="reject-chips">
+      <div class="reject-chip" onclick="sendRejectFeedback('งบสูงเกินไป')">งบสูงเกินไป</div>
+      <div class="reject-chip" onclick="sendRejectFeedback('Audience กว้างเกินไป')">Audience กว้างเกินไป</div>
+      <div class="reject-chip" onclick="sendRejectFeedback('ต้องการ Creative ใหม่')">ต้องการ Creative ใหม่</div>
+      <div class="reject-chip" onclick="sendRejectFeedback('เปลี่ยน Platform')">เปลี่ยน Platform</div>
+    </div>
+  </div>`,true);
+  document.getElementById('agStatusPill').textContent='Agent ready';
+  document.getElementById('agStatusPill').className='ag-pill on';
+  setFlowStep(-1);
+  document.getElementById('agPb').style.display='none';
+  busy=false;currentSC=null;
+  document.querySelectorAll('.ag-chip').forEach(c=>c.classList.remove('active'));
+}
+
+function sendRejectFeedback(fb){
+  addMsg('user',fb);
+  showT();
+  setTimeout(()=>{
+    hideT();
+    addMsg('ai',`รับ Feedback "${fb}" แล้วครับ\nAgent จะนำไปปรับในรอบถัดไป กด Scenario ใหม่เพื่อเริ่มต้นอีกครั้ง`);
+  },900);
+}
+
+async function doEdit(){
+  if(!awaitingHITL||!currentSC)return;
+  const p=currentSC.plan;
+  const isBlocked=currentSC.blocked;
+  // inject edit form into the hitl card
+  const gates=document.querySelectorAll('.hitl-gate');
+  if(!gates.length)return;
+  const gate=gates[gates.length-1];
+  gate.style.animation='none';
+  gate.innerHTML=`<div class="edit-overlay">
+    <div class="edit-title"><i class="ti ti-edit" style="font-size:14px"></i>แก้ไข Execution Plan</div>
+    <div class="edit-field">
+      <div class="edit-label">Budget (Total)</div>
+      <input class="edit-input" id="editBudget" value="${isBlocked?'50,000':p.budget.replace('฿','').replace(' total','').trim()}" placeholder="เช่น 20,000"/>
+    </div>
+    <div class="edit-field">
+      <div class="edit-label">Duration (วัน)</div>
+      <input class="edit-input" id="editDur" value="${p.dur.replace(' วัน','').trim()||'7'}" placeholder="เช่น 7"/>
+    </div>
+    <div class="edit-field">
+      <div class="edit-label">Audience</div>
+      <input class="edit-input" id="editAud" value="${p.aud}" placeholder="เช่น Age 25-35 Bangkok"/>
+    </div>
+    <div class="edit-actions">
+      <button class="edit-btn confirm" onclick="confirmEdit()">ยืนยันการแก้ไข</button>
+      <button class="edit-btn cancel" onclick="cancelEdit()">ยกเลิก</button>
+    </div>
+  </div>`;
+}
+
+async function confirmEdit(){
+  const budget=document.getElementById('editBudget')?.value||'';
+  const dur=document.getElementById('editDur')?.value||'';
+  const aud=document.getElementById('editAud')?.value||'';
+  if(!budget||!dur||!aud)return;
+  const daily=Math.round(parseInt(budget.replace(/,/g,''))/parseInt(dur));
+  // update plan in currentSC
+  if(currentSC){
+    currentSC.plan.budget='฿'+parseInt(budget.replace(/,/g,'')).toLocaleString()+' total';
+    currentSC.plan.daily='฿'+daily.toLocaleString()+' / วัน';
+    currentSC.plan.dur=dur+' วัน';
+    currentSC.plan.aud=aud;
+    currentSC.blocked=false;
+  }
+  // replace gate with updated plan
+  const gates=document.querySelectorAll('.hitl-gate, .edit-overlay');
+  gates.forEach(g=>{
+    const parent=g.closest('.ag-bub');
+    if(parent){parent.innerHTML=buildHITLCard(currentSC);}
+  });
+  // add re-validation log entry
+  const el=document.getElementById('agLog');
+  const row=mkLI({t:'Guardrail: Re-validated after edit',s:`Budget ฿${parseInt(budget.replace(/,/g,'')).toLocaleString()} ✓ · Plan updated`},'done');
+  el.appendChild(row);el.scrollTop=el.scrollHeight;
+  awaitingHITL=true;
+}
+
+function cancelEdit(){
+  if(!currentSC)return;
+  const editDivs=document.querySelectorAll('.edit-overlay');
+  editDivs.forEach(d=>{
+    const parent=d.closest('.ag-bub');
+    if(parent)parent.innerHTML=buildHITLCard(currentSC);
+  });
+}
+
+async function runS(idx){
+  if(busy)return;busy=true;awaitingHITL=false;currentSC=null;
+  document.querySelectorAll('.ag-chip').forEach((c,i)=>c.classList.toggle('active',i===idx));
+  const sc=SC[idx];currentSC=sc;
+  addMsg('user',sc.user);
+  await sl(320);showT();
+  // reset log
+  document.getElementById('agEmpty').style.display='none';
+  const el=document.getElementById('agLog');el.style.display='flex';el.innerHTML='';
+  const pb=document.getElementById('agPb'),pf=document.getElementById('agPf');
+  pb.style.display='block';pf.style.width='0%';
+  // activate flow tab
+  swTab('flow');setFlowStep(0);
+  const pill=document.getElementById('agStatusPill');
+  pill.textContent='Processing...';pill.className='ag-pill on';
+  // run pre-steps
+  const total=sc.preSteps.length;
+  for(let i=0;i<total;i++){
+    const step=sc.preSteps[i];
+    const isLast=i===total-1;
+    const type=isLast&&sc.blocked?'block':isLast?'warn':'done';
+    const row=mkLI(step,type);
+    el.appendChild(row);el.scrollTop=el.scrollHeight;
+    const fsIdx=i<2?1:i<4?2:i===4?3:4;
+    setFlowStep(fsIdx);
+    pf.style.width=Math.round(((i+1)/total)*70)+'%';
+    await sl(340+Math.random()*160);
+  }
+  // HITL pause
+  setFlowStep(4);
+  pf.style.width='75%';
+  pill.textContent='⏸ Waiting';pill.className='ag-pill';
+  hideT();
+  swTab('log');
+  // render HITL card in chat
+  const hitlBub=addMsg('ai',buildHITLCard(sc),true);
+  currentPlan=sc.plan;
+  awaitingHITL=true;
+  // scroll
+  document.getElementById('agMsgs').scrollTop=9999;
+}
+
+function sendC(){
+  const v=document.getElementById('agInput').value.trim();
+  if(!v||busy)return;
+  addMsg('user',v);document.getElementById('agInput').value='';showT();
+  setTimeout(()=>{
+    hideT();
+    addMsg('ai',"ได้รับคำสั่งแล้วครับ\n\nกด Scenario chip ด้านบนเพื่อดู HITL Flow จริง ครับ");
+  },900);
+}
+function sl(ms){return new Promise(r=>setTimeout(r,ms));}
+</script>
+</body>
+</html>
