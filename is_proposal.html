@@ -496,22 +496,23 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px
     <div><div class="sec-label">เทคโนโลยีและขอบเขต IS</div><div class="sec-sublabel">Architecture, Tech Stack &amp; IS Scope</div></div>
   </div>
   <div class="stack-grid">
-    <div class="stack-card"><div class="stack-label">Agent Engine</div><div class="stack-value" style="color:#A5B4FC">LangGraph</div></div>
-    <div class="stack-card"><div class="stack-label">Primary LLM</div><div class="stack-value" style="color:#6EE7B7">Claude 3.5 Sonnet</div></div>
+    <div class="stack-card"><div class="stack-label">Agent Engine</div><div class="stack-value" style="color:#A5B4FC">LangGraph, LangSmith</div></div>
+    <div class="stack-card"><div class="stack-label">Primary LLM</div><div class="stack-value" style="color:#6EE7B7">TBA - (Ollama, Gemini Flash, Sonnet, Haiku, GPT-4o) </div></div>
     <div class="stack-card"><div class="stack-label">Backend</div><div class="stack-value" style="color:#FCD34D">FastAPI · Cloud Run</div></div>
-    <div class="stack-card"><div class="stack-label">Platform</div><div class="stack-value" style="color:#FDA4AF">Meta Ads API v18</div></div>
-    <div class="stack-card"><div class="stack-label">Frontend</div><div class="stack-value" style="color:#A5B4FC">Next.js (React)</div></div>
-    <div class="stack-card"><div class="stack-label">Database</div><div class="stack-value" style="color:#6EE7B7">PostgreSQL + pgvector</div></div>
-    <div class="stack-card"><div class="stack-label">Cloud</div><div class="stack-value" style="color:#FCD34D">GCP · Vertex AI</div></div>
-    <div class="stack-card"><div class="stack-label">Eval DB</div><div class="stack-value" style="color:#FDA4AF">Neon (Serverless)</div></div>
+    <div class="stack-card"><div class="stack-label">Platform</div><div class="stack-value" style="color:#FDA4AF">Meta Ads API</div></div>
+    <div class="stack-card"><div class="stack-label">Frontend</div><div class="stack-value" style="color:#A5B4FC">Next.js (React) · Open WebUI</div></div>
+    <div class="stack-card"><div class="stack-label">Database</div><div class="stack-value" style="color:#6EE7B7">PostgreSQL</div></div>
+    <div class="stack-card"><div class="stack-label">Cloud</div><div class="stack-value" style="color:#FCD34D">Google Cloud Platform, Vertex AI*, Cloud Run, PubSub</div></div>
+    <div class="stack-card"><div class="stack-label">Cache DB</div><div class="stack-value" style="color:#FDA4AF">Redis (Serverless)</div></div>
   </div>
-  <div class="scope-cols">
+  <!-- <div class="scope-cols">
     <div class="scope-col">
       <div class="scope-hd in"><i class="ti ti-circle-check" style="font-size:11px;margin-right:3px"></i>In Scope — IS Deliverable (60 วัน)</div>
       <div class="scope-row in"><i class="ti ti-check"></i>Next.js Chat UI + HITL Approval Gate</div>
-      <div class="scope-row in"><i class="ti ti-check"></i>FastAPI + LangGraph Multi-Agent (4 Agents)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Campaign Dashboard</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Core Backend (FastAPI) + LangGraph Multi-Agent</div>
       <div class="scope-row in"><i class="ti ti-check"></i>Claude via Vertex AI + Tool Calling</div>
-      <div class="scope-row in"><i class="ti ti-check"></i>Meta Ads API (Mock-first → Live optional)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Meta Ads API (Acting as MCP)</div>
       <div class="scope-row in"><i class="ti ti-check"></i>Self-Healing Loop + Guardrail Guards</div>
       <div class="scope-row in"><i class="ti ti-check"></i>PostgreSQL + pgvector + Evaluation Layer</div>
     </div>
@@ -524,41 +525,87 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px
       <div class="scope-row out"><i class="ti ti-x"></i>Multi-tenant Auth + CDN + Cloud Armor</div>
       <div class="scope-row out"><i class="ti ti-x"></i>Creative A/B Testing + Performance Analytics</div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <!-- ── 8. TIMELINE ────────────────────────── -->
 <div class="sec fade" id="sec-timeline">
   <div class="sec-hd">
     <div class="sec-num">8</div>
-    <div><div class="sec-label">แผนการดำเนินงาน</div><div class="sec-sublabel">60 Working Days · 5 Phases</div></div>
+    <div><div class="sec-label">แผนการดำเนินงาน</div><div class="sec-sublabel">67 Working Days · 4 Phases</div></div>
   </div>
-  <div class="phases">
-    <div class="phase">
-      <div class="phase-hd" style="background:linear-gradient(135deg,#1B3A6B,#1e4d8a)"><div class="phase-name">Phase 1</div><div class="phase-days">วันที่ 1–10</div></div>
-      <div class="phase-body"><div class="phase-focus">Research &amp; Design</div><ul class="phase-items"><li>ทบทวนวรรณกรรม</li><li>ออกแบบ Architecture</li><li>ตั้งค่า Tech Stack</li><li>GCP Project Setup</li></ul></div>
+  <div class="phases" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; mt: 24px;">
+    
+    <div class="phase" style="background: var(--card); border: 1px solid var(--b1); border-radius: var(--r); overflow: hidden;">
+      <div class="phase-hd" style="background: linear-gradient(135deg,#1e1b4b,#312e81); padding: 12px 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+        <div class="phase-name" style="font-weight: 600;">Phase 1 (7 วัน)</div>
+        <div class="phase-days" style="opacity: 0.8; font-size: 11px;">วันที่ 1–7</div>
+      </div>
+      <div class="phase-body" style="padding: 16px;">
+        <div class="phase-focus" style="font-weight: 600; color: #A5B4FC; font-size: 14px; mb: 8px;">Research &amp; POC</div>
+        <ul class="phase-items" style="font-size: 12.5px; color: var(--t2); list-style-type: disc; list-style-position: inside; line-height: 1.6; padding-left: 4px;">
+          <li>ทบทวนวรรณกรรม &amp; สถาปัตยกรรม</li>
+          <li>ศึกษา Agent &amp; MCP Concept</li>
+          <li>ทำ Proof of Concept (POC)</li>
+          <li>ตั้งค่าเริ่มต้นระบบบน GCP Baseline</li>
+        </ul>
+      </div>
     </div>
-    <div class="phase">
-      <div class="phase-hd" style="background:linear-gradient(135deg,#1d3a7a,#2563EB)"><div class="phase-name">Phase 2</div><div class="phase-days">วันที่ 11–25</div></div>
-      <div class="phase-body"><div class="phase-focus">Core Agent Dev</div><ul class="phase-items"><li>LangGraph + LLM</li><li>4 Agents build</li><li>ReAct Loop</li><li>Mock API Layer</li></ul></div>
+
+    <div class="phase" style="background: var(--card); border: 1px solid var(--b1); border-radius: var(--r); overflow: hidden;">
+      <div class="phase-hd" style="background: linear-gradient(135deg,#2e1065,#4c1d95); padding: 12px 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+        <div class="phase-name" style="font-weight: 600;">Phase 2 (35 วัน)</div>
+        <div class="phase-days" style="opacity: 0.8; font-size: 11px;">วันที่ 8–42</div>
+      </div>
+      <div class="phase-body" style="padding: 16px;">
+        <div class="phase-focus" style="font-weight: 600; color: #C084FC; font-size: 14px; mb: 8px;">Core Implementation</div>
+        <ul class="phase-items" style="font-size: 12.5px; color: var(--t2); list-style-type: disc; list-style-position: inside; line-height: 1.6; padding-left: 4px;">
+          <li>พัฒนา Web UI (Next.js + Tailwind)</li>
+          <li>สร้าง Backend API (FastAPI + SSE)</li>
+          <li>วางระบบกราฟด้วย LangGraph</li>
+          <li>พัฒนาสัญญาระบบผ่าน MCP API</li>
+          <li>สร้างและทดสอบ 4 Core Agents</li>
+        </ul>
+      </div>
     </div>
-    <div class="phase">
-      <div class="phase-hd" style="background:linear-gradient(135deg,#c47820,#E8952A)"><div class="phase-name">Phase 3</div><div class="phase-days">วันที่ 26–38</div></div>
-      <div class="phase-body"><div class="phase-focus">UI &amp; Integration</div><ul class="phase-items"><li>Chat UI (Next.js)</li><li>HITL Gate UI</li><li>Execution Log</li><li>E2E Testing</li></ul></div>
+
+    <div class="phase" style="background: var(--card); border: 1px solid var(--b1); border-radius: var(--r); overflow: hidden;">
+      <div class="phase-hd" style="background: linear-gradient(135deg,#064e3b,#065f46); padding: 12px 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+        <div class="phase-name" style="font-weight: 600;">Phase 3 (15 วัน)</div>
+        <div class="phase-days" style="opacity: 0.8; font-size: 11px;">วันที่ 43–57</div>
+      </div>
+      <div class="phase-body" style="padding: 16px;">
+        <div class="phase-focus" style="font-weight: 600; color: #34D399; font-size: 14px; mb: 8px;">Advanced Integration</div>
+        <ul class="phase-items" style="font-size: 12.5px; color: var(--t2); list-style-type: disc; list-style-position: inside; line-height: 1.6; padding-left: 4px;">
+          <li>เชื่อมต่อเข้ากับ Meta Ads API</li>
+          <li>ทดสอบระบบ Multi-Agents Loop</li>
+          <li>ผูกระบบ HITL Verification Gate</li>
+          <li>เชื่อมระบบบันทึก Shared State</li>
+        </ul>
+      </div>
     </div>
-    <div class="phase">
-      <div class="phase-hd" style="background:linear-gradient(135deg,#065f46,#10B981)"><div class="phase-name">Phase 4</div><div class="phase-days">วันที่ 39–50</div></div>
-      <div class="phase-body"><div class="phase-focus">Testing &amp; Eval</div><ul class="phase-items"><li>Benchmark 20–30 tasks</li><li>User Study 5–10 คน</li><li>SUS + NASA-TLX</li><li>Data Analysis</li></ul></div>
+
+    <div class="phase" style="background: var(--card); border: 1px solid var(--b1); border-radius: var(--r); overflow: hidden;">
+      <div class="phase-hd" style="background: linear-gradient(135deg,#78350f,#92400e); padding: 12px 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+        <div class="phase-name" style="font-weight: 600;">Phase 4 (10 วัน)</div>
+        <div class="phase-days" style="opacity: 0.8; font-size: 11px;">วันที่ 58–67</div>
+      </div>
+      <div class="phase-body" style="padding: 16px;">
+        <div class="phase-focus" style="font-weight: 600; color: #FBBF24; font-size: 14px; mb: 8px;">Testing &amp; Deploy</div>
+        <ul class="phase-items" style="font-size: 12.5px; color: var(--t2); list-style-type: disc; list-style-position: inside; line-height: 1.6; padding-left: 4px;">
+          <li>แพล็กเกจระบบลง Container</li>
+          <li>Deploy ขึ้น Cloud บนระบบ GCP</li>
+          <li>ทดสอบ Self-Healing &amp; Guardrails</li>
+          <li>สรุปเล่มรายงานโครงงาน IS ฉบับเต็ม</li>
+        </ul>
+      </div>
     </div>
-    <div class="phase">
-      <div class="phase-hd" style="background:linear-gradient(135deg,#374151,#4B5563)"><div class="phase-name">Phase 5</div><div class="phase-days">วันที่ 51–60</div></div>
-      <div class="phase-body"><div class="phase-focus">Write-up &amp; Present</div><ul class="phase-items"><li>รายงาน IS (~50 หน้า)</li><li>System Docs</li><li>เตรียมนำเสนอ</li><li>Demo คณะกรรมการ</li></ul></div>
-    </div>
+
   </div>
 </div>
 
 <!-- ── 9. KPIs ────────────────────────────── -->
-<div class="sec fade" id="sec-kpis">
+<!-- <div class="sec fade" id="sec-kpis">
   <div class="sec-hd">
     <div class="sec-num">9</div>
     <div><div class="sec-label">ตัวชี้วัดความสำเร็จ</div><div class="sec-sublabel">Evaluation KPIs — เกณฑ์วัดผลเป็นตัวเลขที่จับต้องได้</div></div>
@@ -571,15 +618,37 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px
     <div class="kpi-card" style="border-top-color:var(--amber)"><div class="kpi-val" style="color:#FCD34D">Pos. Δ</div><div class="kpi-lbl">NASA-TLX Reduction<br/>ลด Cognitive Load ใน 6 Subscales</div></div>
     <div class="kpi-card" style="border-top-color:var(--amber)"><div class="kpi-val" style="color:#FCD34D">&lt; 8s</div><div class="kpi-lbl">Agent Latency P95<br/>End-to-end Prompt → Campaign Card</div></div>
   </div>
-</div>
+</div> -->
 
 <!-- ── 10. DELIVERABLES ───────────────────── -->
+ 
 <div class="sec fade" id="sec-deliverables">
   <div class="sec-hd">
-    <div class="sec-num">10</div>
+    <div class="sec-num">9</div>
     <div><div class="sec-label">ผลลัพธ์ที่คาดหวัง</div><div class="sec-sublabel">Expected Deliverables</div></div>
   </div>
-  <div class="del-cols">
+  <div class="scope-cols">
+    <div class="scope-col">
+      <div class="scope-hd in"><i class="ti ti-circle-check" style="font-size:11px;margin-right:3px"></i>In Scope — IS Deliverable (60 วัน)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Next.js Chat UI + HITL Approval Gate</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Campaign Dashboard</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Core Backend (FastAPI) + LangGraph Multi-Agent</div>
+      <!-- <div class="scope-row in"><i class="ti ti-check"></i>Claude via Vertex AI + Tool Calling</div> -->
+      <div class="scope-row in"><i class="ti ti-check"></i>Meta Ads API (Acting as MCP)</div>
+      <div class="scope-row in"><i class="ti ti-check"></i>Self-Healing Loop + Guardrail Guards</div>
+      <!-- <div class="scope-row in"><i class="ti ti-check"></i>PostgreSQL + pgvector + Evaluation Layer</div> -->
+    </div>
+    <div class="scope-col">
+      <div class="scope-hd out"><i class="ti ti-circle-x" style="font-size:11px;margin-right:3px"></i>Out of Scope — Post-IS / Future Work</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Optimizer Agent (Phase 2)</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Pub/Sub + Cloud Tasks (Async Queue)</div>
+      <!-- <div class="scope-row out"><i class="ti ti-x"></i>Video Transcoding Pipeline</div> -->
+      <div class="scope-row out"><i class="ti ti-x"></i>Google Ads / TikTok Ads Integration</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Multi-tenant Auth + CDN + Cloud Armor</div>
+      <div class="scope-row out"><i class="ti ti-x"></i>Creative A/B Testing + Performance Analytics</div>
+    </div>
+  </div>
+  <!-- <div class="del-cols">
     <div class="del-col">
       <div class="del-col-title" style="color:#A5B4FC"><i class="ti ti-code" style="font-size:13px"></i>Technical Deliverables</div>
       <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Multi-Agent System Web App (Next.js + FastAPI)</div>
@@ -596,25 +665,33 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:14px
       <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Oral Presentation + Live Demo ต่อคณะกรรมการ</div>
       <div class="del-item"><i class="ti ti-circle-check" style="color:var(--emerald)"></i>Research Poster สรุป System + Findings</div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <!-- ── 11. REFERENCES ─────────────────────── -->
 <div class="sec fade" id="sec-refs">
   <div class="sec-hd">
-    <div class="sec-num">11</div>
+    <div class="sec-num">10</div>
     <div><div class="sec-label">เอกสารอ้างอิง</div><div class="sec-sublabel">Key References</div></div>
   </div>
   <div style="background:var(--card);border:1px solid var(--b1);border-radius:var(--r);padding:14px 16px">
-    <div class="ref-grid">
-      <div class="ref-item"><span class="ref-n">R1</span><div class="ref-t"><strong>Yao, S. et al. (2023).</strong> ReAct: Synergizing Reasoning and Acting in Language Models. <em>ICLR 2023.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R2</span><div class="ref-t"><strong>Schick, T. et al. (2023).</strong> Toolformer: LMs Can Teach Themselves to Use Tools. <em>NeurIPS 2023.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R3</span><div class="ref-t"><strong>Wang, L. et al. (2024).</strong> A Survey on LLM-based Autonomous Agents. <em>Frontiers of Computer Science.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R4</span><div class="ref-t"><strong>Peffers, K. et al. (2007).</strong> Design Science Research Methodology for IS Research. <em>JMIS, 24(3), 45–77.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R5</span><div class="ref-t"><strong>Brooke, J. (1996).</strong> SUS: A quick and dirty usability scale. <em>Usability Evaluation in Industry.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R6</span><div class="ref-t"><strong>Hart, S.G. &amp; Staveland, L.E. (1988).</strong> Development of NASA-TLX. <em>Human Mental Workload.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R7</span><div class="ref-t"><strong>Anthropic. (2024).</strong> Claude API — Tool Use and Function Calling. <em>anthropic.com/docs.</em></div></div>
-      <div class="ref-item"><span class="ref-n">R8</span><div class="ref-t"><strong>Meta Platforms. (2024).</strong> Meta Marketing API Documentation. <em>developers.facebook.com.</em></div></div>
+    <div class="ref-grid" style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+      
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R1</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Wang, L. et al. (2024).</strong> A Survey on LLM-based Autonomous Agents. <em>Frontiers of Computer Science.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R2</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Anthropic. (2024).</strong> Claude API — Tool Use and Function Calling. <em>anthropic.com/docs.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R3</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Meta Platforms. (2024).</strong> Meta Marketing API Documentation. <em>developers.facebook.com.</em></div></div>
+      
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R4</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Ramírez, S. (2024).</strong> FastAPI Framework for High-Performance Python APIs. <em>fastapi.tiangolo.com.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R5</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Mozilla &amp; WHATWG. (2024).</strong> Server-Sent Events (SSE) Specification for Real-Time Stream Eventing in Web Applications. <em>developer.mozilla.org.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R6</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Open-WebUI Team. (2024).</strong> Open-WebUI: Extensible Self-Hosted Web Interface for Advanced LLM Operations. <em>github.com/open-webui/open-webui.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R7</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Vercel &amp; Tailwind Labs. (2024).</strong> Next.js App Router Architecture and Tailwind CSS Utility-First Framework Integration. <em>nextjs.org / tailwindcss.com.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R8</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Chase, H. &amp; LangChain Inc. (2024).</strong> LangGraph: Orchestrating Multi-Agent Systems with Cyclic Graphs. <em>langchain-ai.github.io/langgraph.</em></div></div>
+      
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R9</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Google Cloud Platform. (2024).</strong> GCP Cloud Run and Compute Engine Architecture Guidelines. <em>cloud.google.com/docs.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R10</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Open Container Initiative (OCI).</strong> Container Image and Runtime Specifications for Standardized Virtualization. <em>opencontainers.org.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R11</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>PostgreSQL Global Development Group. (2024).</strong> PostgreSQL Object-Relational Database System Documentation. <em>postgresql.org/docs.</em></div></div>
+      <div class="ref-item" style="display: flex; gap: 12px; align-items: flex-start;"><span class="ref-n" style="color:var(--indigo); font-weight:600; min-width:30px">R12</span><div class="ref-t" style="font-size:12.5px; color:var(--t2)"><strong>Anthropic &amp; Open-Source Contributors. (2025).</strong> Model Context Protocol (MCP): Open Standard for Connecting AI Agents to Data Sources and Tools. <em>modelcontextprotocol.org.</em></div></div>
+
     </div>
   </div>
 </div>
